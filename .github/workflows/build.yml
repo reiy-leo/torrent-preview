@@ -1,0 +1,66 @@
+name: Build Universal Binary
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build arm64
+        run: |
+          xcodebuild -project TorrentPreview.xcodeproj \
+            -scheme TorrentPreview \
+            -configuration Release \
+            -destination 'platform=macOS,arch=arm64' \
+            CONFIGURATION_BUILD_DIR=build/arm64 \
+            CODE_SIGNING_ALLOWED=NO \
+            clean build
+
+      - name: Build x86_64
+        run: |
+          xcodebuild -project TorrentPreview.xcodeproj \
+            -scheme TorrentPreview \
+            -configuration Release \
+            -destination 'platform=macOS,arch=x86_64' \
+            CONFIGURATION_BUILD_DIR=build/x86_64 \
+            CODE_SIGNING_ALLOWED=NO \
+            ARCHS=x86_64 \
+            clean build
+
+      - name: Create Universal Binary
+        run: |
+          mkdir -p build/universal
+
+          cp -R build/arm64/TorrentPreview.app build/universal/
+
+          # Main executable
+          lipo -create \
+            build/arm64/TorrentPreview.app/Contents/MacOS/TorrentPreview \
+            build/x86_64/TorrentPreview.app/Contents/MacOS/TorrentPreview \
+            -output build/universal/TorrentPreview.app/Contents/MacOS/TorrentPreview
+
+          # QuickLook extension executable
+          lipo -create \
+            "build/arm64/TorrentPreview.app/Contents/PlugIns/QuickLookTorrentPreviewExtension.appex/Contents/MacOS/QuickLookTorrentPreviewExtension" \
+            "build/x86_64/TorrentPreview.app/Contents/PlugIns/QuickLookTorrentPreviewExtension.appex/Contents/MacOS/QuickLookTorrentPreviewExtension" \
+            -output "build/universal/TorrentPreview.app/Contents/PlugIns/QuickLookTorrentPreviewExtension.appex/Contents/MacOS/QuickLookTorrentPreviewExtension"
+
+      - name: Verify Universal Binary
+        run: lipo -info build/universal/TorrentPreview.app/Contents/MacOS/TorrentPreview
+
+      - name: Package as zip
+        run: cd build/universal && zip -r ../../TorrentPreview.zip TorrentPreview.app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TorrentPreview-universal
+          path: TorrentPreview.zip
