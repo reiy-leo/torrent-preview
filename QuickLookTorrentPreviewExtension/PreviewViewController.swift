@@ -42,5 +42,46 @@ final class PreviewViewController: NSViewController, QLPreviewingController {
         ])
 
         hostingController = host
+        updatePreferredSize(for: state)
+    }
+
+    private func updatePreferredSize(for state: TorrentPreviewState) {
+        guard case .success(let metadata) = state else {
+            preferredContentSize = NSSize(width: 460, height: 200)
+            return
+        }
+
+        let padding: CGFloat = 20 * 2
+        let title: CGFloat = 30
+        let metadataGrid: CGFloat = 70
+        let sectionHeader: CGFloat = 24
+        let trackerRow: CGFloat = 24
+
+        var height = padding + title + metadataGrid
+        var width: CGFloat = 480
+
+        if metadata.files.count > 1 {
+            height += sectionHeader + CGFloat(metadata.files.count) * trackerRow + 16
+
+            // Calculate width from longest file name
+            let font = NSFont.monospacedSystemFont(ofSize: NSFont.smallSystemFontSize, weight: .regular)
+            let attrs: [NSAttributedString.Key: Any] = [.font: font]
+            var maxNameWidth: CGFloat = 0
+            for file in metadata.files {
+                let w = (file.name as NSString).size(withAttributes: attrs).width
+                if w > maxNameWidth { maxNameWidth = w }
+            }
+            // padding(20*2) + section header space + name column + size column(~90) + pieces column(~50) + grid spacing(~36)
+            width = max(480, maxNameWidth + 20 * 2 + 90 + 50 + 36)
+        }
+
+        if !metadata.trackers.isEmpty {
+            height += sectionHeader
+            let visibleTrackers = min(metadata.trackers.count, 10)
+            height += CGFloat(visibleTrackers) * trackerRow
+        }
+
+        height = max(height, 180)
+        preferredContentSize = NSSize(width: width, height: height)
     }
 }

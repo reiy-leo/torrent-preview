@@ -122,16 +122,18 @@ struct TorrentPreviewView: View {
                 GridRow {
                     Text(L10n.tr("ui.fileName")).bold()
                     Text(L10n.tr("ui.fileSize")).bold()
+                        .fixedSize()
                     Text(L10n.tr("ui.pieces")).bold()
+                        .fixedSize()
                 }
                 Divider()
                 ForEach(Array(files.enumerated()), id: \.offset) { _, file in
                     GridRow {
                         Text(file.name)
-                            .lineLimit(1)
-                            .truncationMode(.middle)
                         Text(formattedSize(file.size))
+                            .fixedSize()
                         Text("\(file.pieces)")
+                            .fixedSize()
                     }
                 }
             }
