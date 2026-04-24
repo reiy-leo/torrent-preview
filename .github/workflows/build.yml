@@ -2,10 +2,8 @@ name: Build Universal Binary
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-  workflow_dispatch:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -64,3 +62,8 @@ jobs:
         with:
           name: TorrentPreview-universal
           path: TorrentPreview.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: TorrentPreview.zip
