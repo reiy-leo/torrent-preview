@@ -1,0 +1,22 @@
+"ui.loading" = "Loading torrent metadata...";
+"ui.failureTitle" = "Cannot preview this torrent";
+"ui.trackers" = "Trackers";
+"ui.noTrackers" = "No trackers found";
+"ui.totalSize" = "Total Size";
+"ui.fileCount" = "File Count";
+"ui.infoHash" = "Info Hash";
+"ui.sizeWithBytes" = "%@ (%@ bytes)";
+"ui.files" = "Files";
+"ui.fileName" = "Name";
+"ui.fileSize" = "Size";
+"ui.pieces" = "Pieces";
+
+"error.invalidRoot" = "Torrent root data is not a dictionary.";
+"error.missingInfoDictionary" = "Missing info dictionary.";
+"error.missingName" = "Missing torrent name.";
+"error.invalidLength" = "Invalid file length in torrent info.";
+"error.unexpectedEOF" = "Unexpected end of file while decoding bencode.";
+"error.invalidToken" = "Invalid bencode token: %@.";
+"error.invalidInteger" = "Invalid bencode integer.";
+"error.invalidStringLength" = "Invalid bencode string length.";
+"error.trailingData" = "Trailing data found after bencode payload.";

@@ -1,0 +1,22 @@
+"ui.loading" = "正在加载种子元数据...";
+"ui.failureTitle" = "无法预览该种子文件";
+"ui.trackers" = "Trackers";
+"ui.noTrackers" = "未找到 Tracker";
+"ui.totalSize" = "总大小";
+"ui.fileCount" = "文件数量";
+"ui.infoHash" = "Info Hash";
+"ui.sizeWithBytes" = "%@（%@ 字节）";
+"ui.files" = "文件列表";
+"ui.fileName" = "文件名";
+"ui.fileSize" = "大小";
+"ui.pieces" = "Pieces";
+
+"error.invalidRoot" = "种子根数据不是字典结构。";
+"error.missingInfoDictionary" = "缺少 info 字典。";
+"error.missingName" = "缺少种子名称。";
+"error.invalidLength" = "种子 info 中的文件大小无效。";
+"error.unexpectedEOF" = "解析 bencode 时遇到意外的文件结尾。";
+"error.invalidToken" = "无效的 bencode 标记：%@。";
+"error.invalidInteger" = "无效的 bencode 整数。";
+"error.invalidStringLength" = "无效的 bencode 字符串长度。";
+"error.trailingData" = "bencode 负载后存在多余数据。";

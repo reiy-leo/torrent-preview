@@ -1,0 +1,22 @@
+"ui.loading" = "Torrent メタデータを読み込み中...";
+"ui.failureTitle" = "この torrent はプレビューできません";
+"ui.trackers" = "Trackers";
+"ui.noTrackers" = "Tracker が見つかりません";
+"ui.totalSize" = "合計サイズ";
+"ui.fileCount" = "ファイル数";
+"ui.infoHash" = "Info Hash";
+"ui.sizeWithBytes" = "%@（%@ バイト）";
+"ui.files" = "ファイル一覧";
+"ui.fileName" = "ファイル名";
+"ui.fileSize" = "サイズ";
+"ui.pieces" = "Pieces";
+
+"error.invalidRoot" = "Torrent のルートデータが辞書ではありません。";
+"error.missingInfoDictionary" = "info 辞書がありません。";
+"error.missingName" = "Torrent 名がありません。";
+"error.invalidLength" = "torrent info のファイルサイズが不正です。";
+"error.unexpectedEOF" = "bencode の解析中に予期しない EOF が発生しました。";
+"error.invalidToken" = "無効な bencode トークン: %@。";
+"error.invalidInteger" = "無効な bencode 整数です。";
+"error.invalidStringLength" = "無効な bencode 文字列長です。";
+"error.trailingData" = "bencode データの後に余分なデータがあります。";
